@@ -15,5 +15,6 @@ typedef struct {
 
 void InitBytecode(bytecode_t* bc);
 void WriteBytecode(bytecode_t* bc, u8 byte);
+void FreeBytecode(bytecode_t* bc);
 
 #endif

@@ -8,7 +8,7 @@ void InitBytecode(bytecode_t* bc) {
   bc->code = NULL;
 }
 
-void WriteBytecode(bytecode_t *bc, u8 byte) {
+void WriteBytecode(bytecode_t* bc, u8 byte) {
   if (bc->capacity < bc->count + 1) {
     u32 oldCapacity = bc->capacity;
     bc->capacity = GROW_CAPACITY(oldCapacity);
@@ -17,4 +17,9 @@ void WriteBytecode(bytecode_t *bc, u8 byte) {
 
   bc->code[bc->count] = byte;
   bc->count++;
+}
+
+void FreeBytecode(bytecode_t* bc) {
+  FREE_ARRAY(u8, bc->code, bc->capacity);
+  InitBytecode(bc);
 }
