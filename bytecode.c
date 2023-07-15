@@ -6,6 +6,7 @@ void InitBytecode(bytecode_t* bc) {
   bc->count = 0;
   bc->capacity = 0;
   bc->code = NULL;
+  InitValueArray(&bc->constants);
 }
 
 void WriteBytecode(bytecode_t* bc, u8 byte) {
@@ -21,5 +22,11 @@ void WriteBytecode(bytecode_t* bc, u8 byte) {
 
 void FreeBytecode(bytecode_t* bc) {
   FREE_ARRAY(u8, bc->code, bc->capacity);
+  FreeValueArray(&bc->constants);
   InitBytecode(bc);
+}
+
+i32 AddConstant(bytecode_t *bc, value_t val) {
+  WriteValueArray(&bc->constants, val);
+  return bc->constants.count - 1;
 }
